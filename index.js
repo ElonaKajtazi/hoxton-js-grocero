@@ -1,21 +1,23 @@
-/*
+// Deliverables
+// - A user can view a selection of items in the store ✅
+// - From the store, a user can add an item to their cart ❌
+// - From the cart, a user can view and adjust the number of items in their cart ✅
+// - If an item's quantity equals zero it is removed from the cart ❌
+// - A user can view the current total in their cart ✅
 
-This is how an item object should look like
+// Instructions
+// - Use this template as a starting point => https://codesandbox.io/s/day-11-grocero-template-j2yis ✅
+// - Create a state object ✅
+// - Create action functions that update state ✅
+// - Create render functions  that read from state and update the visuals ✅
 
-{
-  id: 1, // <- the item id matches the icon name in the assets/icons folder
-  name: "beetroot",
-  price: 0.35 // <- You can come up with your own prices
-}
-
-*/
 let state = {
   storeItems: [
     {
       id: 1,
       name: "beetroot",
       price: 0.35,
-      inCart: 1,
+      inCart: 3,
       icon: "assets/icons/001-beetroot.svg",
     },
     {
@@ -83,157 +85,115 @@ let state = {
     },
   ],
 };
+function increaseItem(item) {
+  return item.inCart++;
+}
+function decreaseItem(item) {
+  return item.inCart--;
+}
+function total (){
+  let total = 0;
+  for (let item of state.storeItems) {
+    total += item.price * item.inCart;
+  }
+  return total;
+}
+// function removeItem (item){
+//   let updatedItems = state.storeItems.filter((item) => item.inCart === 0);
+//   state.storeItems = updatedItems;
+// }
+
+
 
 function renderStoreItems() {
-  // Beetroot
   //Creating the elements
-  let liEl = document.createElement("li");
-  let divEl = document.createElement("div");
-  divEl.className = "store--item-icon";
-  let imgEl = document.createElement("img");
-  imgEl.src = state.storeItems[0].icon;
-  imgEl.alt = state.storeItems[0].name;
-  let buttonEl = document.createElement("button");
-  buttonEl.textContent = "Add to cart";
-  //Appending the elements
-  divEl.append(imgEl);
-  liEl.append(divEl, buttonEl);
-  // Carrot
-  //Creating the elements
-  let liEl1 = document.createElement("li");
-  let divEl1 = document.createElement("div");
-  divEl1.className = "store--item-icon";
-  let imgEl1 = document.createElement("img");
-  imgEl1.src = state.storeItems[1].icon;
-  imgEl1.alt = state.storeItems[1].name;
-  let buttonEl1 = document.createElement("button");
-  buttonEl1.textContent = "Add to cart";
-  //Appending the elements
-  divEl1.append(imgEl1);
-  liEl1.append(divEl1, buttonEl1);
-  // Apple
-  //Creating the elements
-  let liEl2 = document.createElement("li");
-  let divEl2 = document.createElement("div");
-  divEl2.className = "store--item-icon";
-  let imgEl2 = document.createElement("img");
-  imgEl2.src = state.storeItems[2].icon;
-  imgEl2.alt = state.storeItems[2].name;
-  let buttonEl2 = document.createElement("button");
-  buttonEl2.textContent = "Add to cart";
-  //Appending the elements
-  divEl2.append(imgEl2);
-  liEl2.append(divEl2, buttonEl2);
-  // Apricot
-  //Creating the elements
-  let liEl3 = document.createElement("li");
-  let divEl3 = document.createElement("div");
-  divEl3.className = "store--item-icon";
-  let imgEl3 = document.createElement("img");
-  imgEl3.src = state.storeItems[3].icon;
-  imgEl3.alt = state.storeItems[3].name;
-  let buttonEl3 = document.createElement("button");
-  buttonEl3.textContent = "Add to cart";
-  //Appending the elements
-  divEl3.append(imgEl3);
-  liEl3.append(divEl3, buttonEl3);
-  // Avocado
-  //Creating the elements
-  let liEl4 = document.createElement("li");
-  let divEl4 = document.createElement("div");
-  divEl4.className = "store--item-icon";
-  let imgEl4 = document.createElement("img");
-  imgEl4.src = state.storeItems[4].icon;
-  imgEl4.alt = state.storeItems[4].name;
-  let buttonEl4 = document.createElement("button");
-  buttonEl4.textContent = "Add to cart";
-  //Appending the elements
-  divEl4.append(imgEl4);
-  liEl4.append(divEl4, buttonEl4);
-  // Banana
-  //Creating the elements
-  let liEl5 = document.createElement("li");
-  let divEl5 = document.createElement("div");
-  divEl5.className = "store--item-icon";
-  let imgEl5 = document.createElement("img");
-  imgEl5.src = state.storeItems[5].icon;
-  imgEl5.alt = state.storeItems[5].name;
-  let buttonEl5 = document.createElement("button");
-  buttonEl5.textContent = "Add to cart";
-  //Appending the elements
-  divEl5.append(imgEl5);
-  liEl5.append(divEl5, buttonEl5);
-  // Bell Pepper
-  //Creating the elements
-  let liEl6 = document.createElement("li");
-  let divEl6 = document.createElement("div");
-  divEl6.className = "store--item-icon";
-  let imgEl6 = document.createElement("img");
-  imgEl6.src = state.storeItems[6].icon;
-  imgEl6.alt = state.storeItems[6].name;
-  let buttonEl6 = document.createElement("button");
-  buttonEl6.textContent = "Add to cart";
-  //Appending the elements
-  divEl6.append(imgEl6);
-  liEl6.append(divEl6, buttonEl6);
-  // Berry
-  //Creating the elements
-  let liEl7 = document.createElement("li");
-  let divEl7 = document.createElement("div");
-  divEl7.className = "store--item-icon";
-  let imgEl7 = document.createElement("img");
-  imgEl7.src = state.storeItems[7].icon;
-  imgEl7.alt = state.storeItems[7].name;
-  let buttonEl7 = document.createElement("button");
-  buttonEl7.textContent = "Add to cart";
-  //Appending the elements
-  divEl7.append(imgEl7);
-  liEl7.append(divEl7, buttonEl7);
-  // Blueberry
-  //Creating the elements
-  let liEl8 = document.createElement("li");
-  let divEl8 = document.createElement("div");
-  divEl8.className = "store--item-icon";
-  let imgEl8 = document.createElement("img");
-  imgEl8.src = state.storeItems[8].icon;
-  imgEl8.alt = state.storeItems[8].name;
-  let buttonEl8 = document.createElement("button");
-  buttonEl8.textContent = "Add to cart";
-  //Appending the elements
-  divEl8.append(imgEl8);
-  liEl8.append(divEl8, buttonEl8);
-  // Eggplant
-  //Creating the elements
-  let liEl9 = document.createElement("li");
-  let divEl9 = document.createElement("div");
-  divEl9.className = "store--item-icon";
-  let imgEl9 = document.createElement("img");
-  imgEl9.src = state.storeItems[9].icon;
-  imgEl9.alt = state.storeItems[9].name;
-  let buttonEl9 = document.createElement("button");
-  buttonEl9.textContent = "Add to cart";
-  //Appending the elements
-  divEl9.append(imgEl9);
-  liEl9.append(divEl9, buttonEl9);
-
-// Appending the elements
   let storeUl = document.querySelector(".item-list.store--item-list");
-  storeUl.append(
-    liEl,
-    liEl1,
-    liEl2,
-    liEl3,
-    liEl4,
-    liEl5,
-    liEl6,
-    liEl7,
-    liEl8,
-    liEl9
-  );
+  storeUl.textContent = "";
+  for (let item of state.storeItems) {
+    let liEl = document.createElement("li");
+    let divEl = document.createElement("div");
+    divEl.className = "store--item-icon";
+    let imgEl = document.createElement("img");
+    imgEl.src = item.icon;
+    let buttonEl = document.createElement("button");
+    buttonEl.textContent = "Add to cart";
+    buttonEl.addEventListener("click", () => {
+      increaseItem(item);
+      render();
+    });
+    //Appending the elements
+
+    liEl.append(divEl, buttonEl);
+    divEl.append(imgEl);
+    let storeUl = document.querySelector(".item-list.store--item-list");
+    storeUl.append(liEl);
+  }
+}
+
+function renderCartItems() {
+  let cartUl = document.querySelector(".item-list.cart--item-list");
+  cartUl.textContent = "";
+  for (let item of state.storeItems) {
+    let liCartEl = document.createElement("li");
+    let imgCartEl = document.createElement("img");
+    imgCartEl.className = "cart--item-icon";
+    imgCartEl.src = item.icon;
+    imgCartEl.alt = item.name;
+    let pCartEl = document.createElement("p");
+    pCartEl.textContent = item.name;
+    let buttonCartEl = document.createElement("button");
+    buttonCartEl.className = "quantity-btn remove-btn center";
+    buttonCartEl.textContent = "-";
+    buttonCartEl.addEventListener("click", () => {
+      if (item.inCart > 0) {
+        decreaseItem(item);
+        render();
+      } else
+      render();
+    });
+
+    let spanCartEl = document.createElement("span");
+    spanCartEl.className = "quantity-text center";
+    spanCartEl.textContent = String(item.inCart);
+
+    let buttonCartEl1 = document.createElement("button");
+    buttonCartEl1.className = "quantity-btn add-btn center";
+    buttonCartEl1.textContent = "+";
+    buttonCartEl1.addEventListener("click", () => {
+      increaseItem(item);
+      render();
+    });
+
+    liCartEl.append(
+      imgCartEl,
+      pCartEl,
+      buttonCartEl,
+      spanCartEl,
+      buttonCartEl1
+    );
+    let cartUl = document.querySelector(".item-list.cart--item-list");
+    cartUl.append(liCartEl);
+  }
+}
+function renderTotal(){
+  
+  let h3El = document.createElement("h3");
+  h3El.textContent = "Total";
+  let spanEl = document.createElement("span");
+  spanEl.className = "total-price";
+  spanEl.textContent = String(total().toFixed(2));
+  // <h3>Total</h3>
+
+  // <span class="total-number">£0.00</span>
+  let divEl = document.querySelector(".total-section");
+  divEl.textContent = "";
+  divEl.append(h3El, spanEl);
 }
 
 function render() {
   renderStoreItems();
+  renderCartItems();
+  renderTotal();
 }
 
 render();
