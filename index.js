@@ -85,6 +85,9 @@ let state = {
     },
   ],
 };
+function getInCart(){
+  return state.storeItems.filter(item => item.inCart > 0);
+}
 function increaseItem(item) {
   return item.inCart++;
 }
@@ -133,7 +136,8 @@ function renderStoreItems() {
 function renderCartItems() {
   let cartUl = document.querySelector(".item-list.cart--item-list");
   cartUl.textContent = "";
-  for (let item of state.storeItems) {
+  let inCart = getInCart();
+  for (let item of inCart) {
     let liCartEl = document.createElement("li");
     let imgCartEl = document.createElement("img");
     imgCartEl.className = "cart--item-icon";
@@ -180,6 +184,7 @@ function renderTotal(){
   let h3El = document.createElement("h3");
   h3El.textContent = "Total";
   let spanEl = document.createElement("span");
+  let divEl1 = document.createElement("div");
   spanEl.className = "total-price";
   spanEl.textContent = String(total().toFixed(2));
   // <h3>Total</h3>
@@ -187,7 +192,8 @@ function renderTotal(){
   // <span class="total-number">£0.00</span>
   let divEl = document.querySelector(".total-section");
   divEl.textContent = "";
-  divEl.append(h3El, spanEl);
+  divEl1.append("£", spanEl);
+  divEl.append(h3El, divEl1);
 }
 
 function render() {
