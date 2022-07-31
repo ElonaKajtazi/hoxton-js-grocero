@@ -86,7 +86,7 @@ let state = {
   ],
 };
 function getInCart(){
-  return state.storeItems.filter(item => item.inCart > 0);
+  return store.filter(item => item.inCart > 0);
 }
 function increaseItem(item) {
   return item.inCart++;
